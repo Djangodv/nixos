@@ -99,7 +99,42 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # settings = {
+      # PasswordAuthentication = true;
+    # };
+    hostKeys = [
+      {
+        bits = 4096;
+        path = "/home/user/.ssh/id_ed25519";
+        type = "ed25519";
+        comment = "user@nixos-demo";
+      }
+      {
+        bits = 4096;
+        path = "/home/user/.ssh/id_ed25519_school";
+        type = "ed25519";
+        comment = "user@nixos-demo";
+      }
+    ];
+  };
+  # services.openssh.enable = true;
+
+  systemd.services.keys = {
+    enable = true;
+    description = "Change file permissions of keys in /home/user/.ssh";
+    # Specifies the service should start when non-gfx multi-user shell is ready
+    wantedBy = [ "multi-user.target" ];
+    after = [ "home-manager-user.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''/bin/sh -c "chown user:users /home/user/.ssh/id_ed25519*"'';
+      # User = "user";
+      # Group = "users";
+    };
+  
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

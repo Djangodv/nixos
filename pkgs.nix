@@ -8,6 +8,7 @@
      wget
      git
      tree
+     alacritty
    ];
 
 }

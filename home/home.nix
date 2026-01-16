@@ -13,8 +13,11 @@
     username = "user";
     homeDirectory = "/home/user";
 
-    packages = with pkgs; [
+    #activation.sshKeyPermissions = lib.hm.dag.entryAfter [ "writeBoundary" ] '' echo "Hello World!" '';
 
+
+
+    packages = with pkgs; [
     ];
 
     # You do not need to change this if you're reading this in the future.
