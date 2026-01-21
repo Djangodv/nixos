@@ -23,6 +23,7 @@ in
     '';
 
     packages = with pkgs; [
+      spotify
     ];
 
     # You do not need to change this if you're reading this in the future.
