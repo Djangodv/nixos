@@ -37,6 +37,7 @@
     kdePackages.elisa
     kdePackages.konsole
     kdePackages.kwalletmanager
+    kdePackages.plasma-workspace-wallpapers
    ]; 
 
   # Configure network proxy if necessary
@@ -84,7 +85,7 @@
 
   environment.variables.EDITOR = "vim";
 
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 

@@ -9,6 +9,8 @@
      git
      tree
      alacritty
+     unzip
+     firefox-esr
    ];
 
 }

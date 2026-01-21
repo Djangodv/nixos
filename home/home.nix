@@ -13,9 +13,10 @@
     username = "user";
     homeDirectory = "/home/user";
 
-    #activation.sshKeyPermissions = lib.hm.dag.entryAfter [ "writeBoundary" ] '' echo "Hello World!" '';
-
-
+    activation.symlinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      ln -sf /etc/nixos/theme/icons/ ~/.local/share/
+      ln -sf /etc/nixos/theme/wallpapers/ ~/.local/share/
+    '';
 
     packages = with pkgs; [
     ];
