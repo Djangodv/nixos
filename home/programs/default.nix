@@ -17,6 +17,7 @@ in
      ./plasma.nix
      ./ssh.nix
      ./alacritty.nix
+     ./bash.nix
 
      # Or absolute
      # /path/to/otherModule.nix

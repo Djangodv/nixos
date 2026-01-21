@@ -29,4 +29,8 @@ in
     # Don't ever change this after the first build.  Don't ask questions.
     stateVersion = "25.11";
   };
+
+  # Fonts
+  # xdg.configFile."mimeapps.list".force = true;
+
 }

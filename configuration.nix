@@ -52,6 +52,11 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.ubuntu-mono
+  ];
+
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
