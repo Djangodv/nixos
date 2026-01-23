@@ -14,8 +14,14 @@
       # Remove the 'pin' icon on the applications bar
       kwinrc."org.kde.kdecoration2".ButtonsOnLeft = "M";
       kwinrc."org.kde.kdecoration2".ButtonsOnRight = "IAX";
+      # Changes font to a slighty bolder version
       kdeglobals.General.font = "Noto Sans,10,-1,5,500,0,0,0,0,0,0,0,0,0,0,1,Medium";
+      # Scale applications
+      kwinrc.Xwayland.Scale = 1.2;
+      # Enable natural scrolling
+      kcminputrc."Libinput/1267/12356/ELAN1200:00 04F3:3044 Touchpad".NaturalScroll = true;
     };
+
 
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop"; 
