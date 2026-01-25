@@ -1,2 +1,2 @@
 # Ignore custom hardware-configuration
-hardware-configuration.nix
+# hardware-configuration.nix

@@ -86,13 +86,6 @@
     ];
   };
 
-  users.users.test = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-    ];
-  };
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment.variables.EDITOR = "vim";
@@ -136,7 +129,7 @@
 
   # TODO: Gives error, because of home-manager failing on first system setup
   systemd.services.keys = {
-    enable = true;
+    enable = false;
     description = "Change file permissions of keys in /home/user/.ssh";
     # Specifies the service should start when non-gfx multi-user shell is ready
     wantedBy = [ "multi-user.target" ];
