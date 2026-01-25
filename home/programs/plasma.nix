@@ -1,16 +1,19 @@
 {pkgs, ... }:
 {
 
-  # TODO: Add window rules
+  # NOTE: Scaling, opacity of bottom bar and tiling windows with Meta + T doesn't work
 
   programs.plasma = {
     enable = true;
+    # overrideConfig = true;
 
     configFile = {
       # Accent color
       kdeglobals.General.AccentColor = "40,48,58";
       kdeglobals.General.LastUsedCustomAccentColor = "40,48,58";
+      # Number of desktops
       kwinrc.Desktops.Number = 2;
+      kwinrc.Desktops.Rows = 1;
       # Remove the 'pin' icon on the applications bar
       kwinrc."org.kde.kdecoration2".ButtonsOnLeft = "M";
       kwinrc."org.kde.kdecoration2".ButtonsOnRight = "IAX";
@@ -20,17 +23,17 @@
       kwinrc.Xwayland.Scale = 1.2;
       # Enable natural scrolling
       kcminputrc."Libinput/1267/12356/ELAN1200:00 04F3:3044 Touchpad".NaturalScroll = true;
-    };
 
+    };
 
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop"; 
       iconTheme = "Tela-dark";
-      wallpaper = /home/user/.local/share/wallpapers/pexels-eberhardgross-1612353.jpg;
+      # wallpaper = /home/user/.local/share/wallpapers/pexels-eberhardgross-1612353.jpg;
     };
 
     kscreenlocker = {
-      appearance.wallpaper = /home/user/.local/share/wallpapers/pexels-eberhardgross-1612353.jpg;
+      # appearance.wallpaper = /home/user/.local/share/wallpapers/pexels-eberhardgross-1612353.jpg;
     };
 
     shortcuts = {
@@ -38,25 +41,20 @@
       "services/firefox-esr.desktop"._launch = "Meta+F";
       "services/Alacritty.desktop"._launch = "Meta+Space";
 
-      # Use KDE tiling editor to order window layout
-      kwin."Window Custom Quick Tile Bottom" = "Meta+Down";
-      kwin."Window Custom Quick Tile Left" = "Meta+Left";
-      kwin."Window Custom Quick Tile Right" = "Meta+Right";
-      kwin."Window Custom Quick Tile Top" = "Meta+Up";
-      kwin."Window Quick Tile Bottom" = [ ];
-      kwin."Window Quick Tile Left" = [ ];
-      kwin."Window Quick Tile Right" = [ ];
-      kwin."Window Quick Tile Top" = [ ];
-
-      ksmserver."Lock Session" = "Screensaver";
-
+      # Change focus
       kwin."Switch Window Down" = ["Meta+J" "Meta+Alt+Down"];
       kwin."Switch Window Left" = ["Meta+Alt+Left" "Meta+H"];
       kwin."Switch Window Right" = ["Meta+L" "Meta+Alt+Right"];
       kwin."Switch Window Up" = ["Meta+Alt+Up" "Meta+K"];
 
+      # Switch window to desktop
       kwin."Window One Desktop to the Left" = ["Meta+Ctrl+Shift+Left" "Meta+Shift+Left"];
       kwin."Window One Desktop to the Right" = ["Meta+Ctrl+Shift+Right" "Meta+Shift+Right"];
+
+      # Maximize window
+      kwin."Window Maximize" = ["Meta+PgUp" "Meta+Shift+Up"];
+      kwin."Window Minimize" = ["Meta+PgDown" "Meta+Shift+Down"];
+
     };
 
     kwin = {
@@ -68,6 +66,7 @@
         time.evening = "19:00";
         transitionTime = 15;
       };
+      effects.dimInactive.enable = true;
     };
 
     session.general.askForConfirmationOnLogout = false;
@@ -76,10 +75,8 @@
 
       # Windows-like panel at the bottom
       {
-
         location = "bottom";
         opacity = "opaque";
-        # floating = false;
         widgets = [
           "org.kde.plasma.kickoff"
           {
