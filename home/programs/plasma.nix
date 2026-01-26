@@ -109,6 +109,33 @@
     
     ];
 
+    powerdevil = {
+      AC = {
+        autoSuspend = {
+          action = "sleep";
+          idleTimeout = 900; # 15 minutes
+        };
+        powerButtonAction = "hibernate";
+        powerProfile = "performance";
+      };
+      battery = {
+        autoSuspend = {
+          action = "sleep";
+          idleTimeout = 600; # 10 minutes
+        };
+        powerButtonAction = "hibernate";
+        powerProfile = "balanced";
+      };
+      lowBattery = {
+        autoSuspend = {
+          action = "sleep";
+          idleTimeout = 300; # 5 minutes
+        };
+        powerButtonAction = "hibernate";
+        powerProfile = "powerSaving";
+      };
+    };
+
     input = {
     
     };
