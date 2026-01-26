@@ -17,6 +17,8 @@
       # Remove the 'pin' icon on the applications bar
       kwinrc."org.kde.kdecoration2".ButtonsOnLeft = "M";
       kwinrc."org.kde.kdecoration2".ButtonsOnRight = "IAX";
+      # Turn off: "show selected window" to fix annoying delay
+      kwinrc.TabBox.HighlightWindows = false;
       # Changes font to a slighty bolder version
       kdeglobals.General.font = "Noto Sans,10,-1,5,500,0,0,0,0,0,0,0,0,0,0,1,Medium";
       # Scale applications
