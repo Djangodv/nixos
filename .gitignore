@@ -1,2 +1,2 @@
-# Ignore custom hardware-configuration
-# hardware-configuration.nix
+# places.sqlite file in Firefox is not encrypted; it contains bookmarks, downloads, and browsing history in plain text.
+./bookmars/*

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -126,6 +126,12 @@
       };
     };
   };
+
+  home.file.".mozilla/firefox/default/places.sqlite" = {
+    source = config.lib.file.mkOutOfStoreSymlink "~/Github/nixos/places.sqlite";
+    force = true;
+  };
+  
 }
 
 # Sources for configuration:

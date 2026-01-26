@@ -20,6 +20,7 @@ in
     activation.symlinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       ln -sf ~/Github/nixos/theme/icons/ ~/.local/share/
       ln -sf ~/Github/nixos/theme/wallpapers/ ~/.local/share/
+      ln -sf ~/Github/nixos/bookmarks/places.sqlite ~/.mozilla/firefox/default/places.sqlite
     '';
 
     packages = with pkgs; [
