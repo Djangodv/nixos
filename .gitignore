@@ -1,2 +1,2 @@
 # places.sqlite file in Firefox is not encrypted; it contains bookmarks, downloads, and browsing history in plain text.
-./bookmarks/*
+bookmarks/
