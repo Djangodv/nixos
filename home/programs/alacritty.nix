@@ -7,7 +7,7 @@
     settings = {
 
       font = {
-        size = 15;
+        size = 13;
 
         normal = {
           family = "JetBrains Mono Nerd Font";

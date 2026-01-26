@@ -129,7 +129,7 @@
 
   # TODO: Gives error, because of home-manager failing on first system setup
   systemd.services.keys = {
-    enable = false;
+    enable = true;
     description = "Change file permissions of keys in /home/user/.ssh";
     # Specifies the service should start when non-gfx multi-user shell is ready
     wantedBy = [ "multi-user.target" ];

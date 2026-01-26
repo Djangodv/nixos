@@ -18,6 +18,7 @@ in
      ./ssh.nix
      ./alacritty.nix
      ./bash.nix
+     ./firefox.nix
 
      # Or absolute
      # /path/to/otherModule.nix

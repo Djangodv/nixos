@@ -66,7 +66,7 @@
         time.evening = "19:00";
         transitionTime = 15;
       };
-      effects.dimInactive.enable = true;
+      # effects.dimInactive.enable = true;
     };
 
     session.general.askForConfirmationOnLogout = false;
