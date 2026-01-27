@@ -3,6 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, inputs, ... }:
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -90,6 +91,22 @@
 
   environment.variables.EDITOR = "vim";
 
+  # Custom system-wide .vimrc configuration
+	environment.systemPackages = with pkgs; [
+    ((vim.override{ }).customize {
+      name = "vim";
+      vimrcConfig.customRC = ''
+				" Custom vimrc
+				set mouse=a
+				set number
+				set tabstop=2 shiftwidth=2
+				set ignorecase
+				" Turn on syntax highlighting by default
+				syntax on
+      '';
+    })
+	];
+
   # programs.firefox.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -145,6 +162,7 @@
   # Enable virtualisation
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
