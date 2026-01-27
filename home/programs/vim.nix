@@ -3,6 +3,7 @@
 
   programs.vim = {
     enable = true;
+    packageConfigurable = pkgs.vim;
     # plugins = with pkgs.vimPlugins; [ ];
     settings = { 
       ignorecase = true; 
