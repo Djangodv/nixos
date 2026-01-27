@@ -1,16 +1,8 @@
 { pkgs,  ... }:
-let
-    # echo "Hello, World!"
-  test-example = pkgs.writeShellScriptBin "hello-world" ''
-    touch /home/user/NewFile.txt
-  '';
-in
 {
   imports = [
-     # Paths to other modules
 
-     # They can be relative paths
-     # ./otherModule.nix
+     # Paths to other modules
 
      ./vim.nix
      ./git.nix
@@ -19,19 +11,8 @@ in
      ./alacritty.nix
      ./bash.nix
      ./firefox.nix
+     ./nvim.nix
 
-     # Or absolute
-     # /path/to/otherModule.nix
-
-     # Or to a directory
-     # ../modules/home/shells/nushell
   ];
-
-  home = {
-    packages = 
-    [
-      # test-example
-    ];
-  };
 }
 
