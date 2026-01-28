@@ -10,12 +10,17 @@ in
     plugins = with pkgs.vimPlugins; [
       # LSP server configurations
       # nvim-lspconfig
-      # Bridge between mason and nvim-lspconfig
-      # mason-lspconfig-nvim
       # mason-nvim
+      # mason-lspconfig-nvim # Bridge mason & lspconfig
       # markdown-preview-nvim
       # gitsigns-nvim
       # kanagawa-nvim
     ];
+  };
+
+  xdg.configFile."nvim" = {
+    source = ./conf;
+    recursive = true;
+    force = true;
   };
 }
