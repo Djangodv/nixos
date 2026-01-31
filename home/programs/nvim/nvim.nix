@@ -23,4 +23,12 @@ in
     recursive = true;
     force = true;
   };
+
+	home.packages = with pkgs; [
+		pyright
+		lua-language-server
+		llvmPackages_20.clang-tools
+		# llvmPackages_20.clang-unwrapped
+	];
+	
 }
