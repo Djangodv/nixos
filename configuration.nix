@@ -163,6 +163,9 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
+	# Source: https://blog.kaorubb.org/en/posts/nixos-fix-could-not-start-dynamically-linked-executable/
+	# Fix 'NixOS cannot run dynamically linked executables intended for generic linux environments out of the box'
+	programs.nix-ld.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

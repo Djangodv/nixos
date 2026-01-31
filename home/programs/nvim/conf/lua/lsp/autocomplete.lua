@@ -1,5 +1,7 @@
 -- Desc:
 
+vim.lsp.enable({ 'clangd', 'pyright', 'lua_ls' })
+
 -- Set max. items for completion menu
 vim.opt.pumheight = 8
 
