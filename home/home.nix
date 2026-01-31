@@ -25,6 +25,7 @@ in
 
     packages = with pkgs; [
       spotify
+      tldr
     ];
 
     # You do not need to change this if you're reading this in the future.

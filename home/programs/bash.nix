@@ -6,6 +6,7 @@
 
     shellAliases = {
       exp-idf = ". $HOME/esp/esp-idf/export.sh";
+      nix-run = "sudo nixos-rebuild switch --upgrade --flake ~/Github/nixos#nixos-demo";
     };
 
     initExtra = ''

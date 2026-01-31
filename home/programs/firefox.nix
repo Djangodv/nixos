@@ -121,6 +121,7 @@
         # See https://librewolf.net/docs/faq/#how-do-i-fully-prevent-autoplay for options
         "media.autoplay.blocking_policy" = 2;
         "browser.compactmode.show" = true;
+        # "browser.ctrlTab.sortByRecentlyUsed" = true;
         # TODO: Below needs testing
         # "browser.uiCustomization.navBarWhenVerticalTabs" = ''["sidebar-button","back-button","forward-button","stop-reload-button","customizableui-special-spring1","vertical-spacer","urlbar-container","customizableui-special-spring2","save-to-pocket-button","downloads-button","fxa-toolbar-menu-button","unified-extensions-button"]'';
       };
