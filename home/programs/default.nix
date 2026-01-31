@@ -9,7 +9,7 @@
      ./alacritty.nix
      ./bash.nix
      ./firefox.nix
-     ./nvim
+     ./nvim.nix
 
   ];
 }

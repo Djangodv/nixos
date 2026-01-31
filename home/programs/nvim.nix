@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ project-root, inputs, pkgs, ... }:
 let
   neovim-nightly = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
 in
@@ -19,7 +19,8 @@ in
   };
 
   xdg.configFile."nvim" = {
-    source = ./conf;
+    source = "${project-root}/nvim";
+    # source = ./conf;
     recursive = true;
     force = true;
   };
