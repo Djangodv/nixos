@@ -1,5 +1,6 @@
 require('plugin.lspconfig')
 require('plugin.kanagawa')
+require('plugin.fzf')
 
 require('lsp.autocomplete')
 require('lsp.diagnostics')

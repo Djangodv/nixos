@@ -6,6 +6,8 @@ in
   programs.neovim = {
     enable = true;
     package = neovim-nightly;
+		viAlias = true;
+		vimAlias = true;
     # package = inputs.nvim.packages.${pkgs.system}.default;
     plugins = with pkgs.vimPlugins; [
       # LSP server configurations
@@ -30,7 +32,7 @@ in
 		pyright
 		lua-language-server
 		llvmPackages_20.clang-tools
-		# llvmPackages_20.clang-unwrapped
+		# bat
 	];
 	
 }
