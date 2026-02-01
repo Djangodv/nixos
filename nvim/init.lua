@@ -1,11 +1,8 @@
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-
-vim.opt.swapfile = false
-
--- require('plugin.mason')
 require('plugin.lspconfig')
+require('plugin.kanagawa')
 
 require('lsp.autocomplete')
+
+require('config.options')
 
 
