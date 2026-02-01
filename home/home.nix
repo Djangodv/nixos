@@ -25,6 +25,7 @@ in
 
     packages = with pkgs; [
       spotify
+			gimp
       tldr
     ];
 
