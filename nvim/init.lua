@@ -5,6 +5,7 @@ require('plugin.gitsigns')
 
 require('lsp.autocomplete')
 require('lsp.diagnostics')
+require('lsp.formatting')
 
 require('config.options')
 require('config.statusline')
