@@ -11,4 +11,4 @@ require('lsp.formatting')
 require('config.options')
 require('config.statusline')
 require('config.terminal')
-
+require('config.workspace')
