@@ -1,24 +1,26 @@
+-- Note: https://nuxsh.is-a.dev/blog/custom-nvim-statusline.html
+
 local function mode()
-
 	-- :h mode() for when adding more modes
-  local map = {
-    n = " NOR ",
-    i = " INS ",
-    v = " VIS ",
-    V = " VIS ",
-		c = " COM "
-  }
+	local map = {
+		n = " NOR ",
+		i = " INS ",
+		v = " VIS ",
+		V = " VIS ",
+		c = " COM ",
+		t = " TERM "
+	}
 
-  return vim.fn.get(map, vim.fn.mode(), '')
+	return vim.fn.get(map, vim.fn.mode(), '')
 end
 
 local function branch()
 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-		if string.len(branch) > 0 then
-			return branch
-		else
-			return ": "
-		end
+	if string.len(branch) > 0 then
+		return branch
+	else
+		return ":"
+	end
 end
 
 function Statusline()
@@ -38,3 +40,7 @@ vim.opt.statusline = "%!v:lua.Statusline()"
 
 -- Show only one statusline at the bottom instead of per window
 vim.opt.laststatus = 3
+
+-- Removes mode indicator below statusline
+vim.opt.showmode = false -- Causes the 'pattern not found' bug
+vim.opt.showcmd = false

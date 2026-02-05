@@ -4,3 +4,6 @@ vim.opt.shiftwidth = 2
 
 vim.opt.swapfile = false
 
+vim.opt.mouse = 'a'
+
+vim.opt.nu = true

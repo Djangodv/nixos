@@ -46,14 +46,14 @@ end, { desc = '...', expr = true })
 
 -- Jump snippets with <tab>
 -- Select mode 's' is a mode used often by snippet plugins, include vim.snippet
-vim.keymap.set({'i', 's'}, '<tab>', function()
-    if vim.snippet.active({ direction = 1 }) then
-      return '<cmd>lua vim.snippet.jump(1)<cr>'
-    elseif vim.fn.pumvisible() == 1 then
-      -- Can't find the right func for calling selecting next completion, but c-n can still be remapped in normal mode
-      -- Alternatively return a <down>?
-        return "<c-n>"
-    else
-        return "<tab>"
-    end
+vim.keymap.set({ 'i', 's' }, '<tab>', function()
+	if vim.snippet.active({ direction = 1 }) then
+		return '<cmd>lua vim.snippet.jump(1)<cr>'
+	elseif vim.fn.pumvisible() == 1 then
+		-- Can't find the right func for calling selecting next completion, but c-n can still be remapped in normal mode
+		-- Alternatively return a <down>?
+		return "<c-n>"
+	else
+		return "<tab>"
+	end
 end, { desc = '...', expr = true })
