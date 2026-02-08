@@ -9,7 +9,7 @@ vim.pack.add({ "https://github.com/junegunn/fzf.vim" })
 -- }
 
 vim.g.fzf_layout = {
-	["window"] = { ["width"] = 0.6, ["height"] = 0.6 }
+	["window"] = { ["width"] = 1, ["height"] = 0.6 }
 }
 
 -- Change default statusline colors when opening fzf
@@ -33,5 +33,6 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = 'fzf',
 	callback = function()
 		vim.keymap.set('t', '<esc>', '<c-c>', { buffer = true })
+		vim.keymap.set('t', '<c-j>', '<down>', { buffer = true })
 	end
 })
