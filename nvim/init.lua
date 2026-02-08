@@ -5,6 +5,10 @@ require('plugin.gitsigns')
 require('plugin.luasnip')
 require('plugin.markdown-preview')
 
+require('plugin.peekaboo')
+require('plugin.surround')
+require('plugin.vim-cool')
+
 require('lsp.autocomplete')
 require('lsp.diagnostics')
 require('lsp.formatting')
