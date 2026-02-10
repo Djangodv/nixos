@@ -29,6 +29,9 @@
   # SDDM Display Manager
   services.displayManager.sddm.enable = true;
 
+  # Enable the X11 windowing system.
+  # services.xserver.enable = true;
+
   # Plasma 6
   services.desktopManager.plasma6.enable = true;
 
@@ -57,9 +60,6 @@
     nerd-fonts.jetbrains-mono
     nerd-fonts.ubuntu-mono
   ];
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -162,6 +162,49 @@
   # Enable virtualisation
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
+	# Install and enable Docker
+	virtualisation.docker.enable = true;
+
+  # Enable OpenGL
+  hardware.graphics = {
+    enable = true;
+  };
+
+	# Some games require 32-bit OpenGl support
+	# Source: https://thelinuxcode.com/how-to-instal-steam-on-nixos/
+	# hardware.opengl.driSupport32Bit = true;
+
+	# Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+
+	hardware.nvidia = {
+
+		# Modesetting is required
+		modesetting.enable = true;
+
+		# Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    open = false;
+
+		# Enable the Nvidia settings menu,
+		# accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+	};
+
+	hardware.nvidia.prime = {
+		# Make sure to use the correct Bus ID values for your system!
+		intelBusId = "PCI:0:2:0";
+		nvidiaBusId = "PCI:1:0:0";
+	};
 
 	# Source: https://blog.kaorubb.org/en/posts/nixos-fix-could-not-start-dynamically-linked-executable/
 	# Fix 'NixOS cannot run dynamically linked executables intended for generic linux environments out of the box'
