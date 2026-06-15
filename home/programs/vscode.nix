@@ -1,6 +1,34 @@
 { pkgs, ... }:
 {
 
+	# Create custom .desktop entry for VSCode so 'dev-shell' is used at startup
+	# Source: https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.desktopEntries
+	xdg.desktopEntries.code = {
+
+		categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+		comment= "Code Editing. Redefined.";
+		# "bash -c <command>" executes the specified command inside a new bash instance
+		exec = ''/run/current-system/sw/bin/dev-shell -c "code %F"'';
+		genericName = "Text Editor";
+		icon = "vscode";
+		name = "Visual Studio Code";
+		startupNotify = true;
+		type = "Application";
+		settings = {
+			Keywords = "vscode";
+			StartupWMClass = "Code";
+			Version = "1.5";
+		};
+
+		actions = {
+			"new-empty-window" = {
+				exec = ''/run/current-system/sw/bin/dev-shell -c "code --new-window %F"'';
+				icon = "vscode";
+				name = "New Empty Window";
+			};
+		};
+	};
+
 	# Enable VSCode
 	programs.vscode = {
 		enable = true;

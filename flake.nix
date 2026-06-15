@@ -21,9 +21,13 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
+		nixvirt = {
+			url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+		};
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, plasma-manager, nixvirt, ... }@inputs:
     let
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
@@ -33,9 +37,13 @@
     # TODO: Replace 'nixos-demo' with matching hostname (also edit in ./configuration.nix)
     nixosConfigurations.nixos-demo = nixpkgs.lib.nixosSystem {
       # Let configuration.nix inherit inputs to use in configuration
-      # specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs; };
       modules = [
+
+				nixvirt.nixosModules.default
+
         ./configuration.nix
+				./devshell.nix
 
 	      home-manager.nixosModules.home-manager
           {
