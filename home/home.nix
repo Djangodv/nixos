@@ -7,6 +7,7 @@ in
   imports = [
 
     ./programs
+    ./pkgs.nix
 
   ];
 
@@ -22,15 +23,6 @@ in
       ln -sf ~/Github/nixos/theme/wallpapers/ ~/.local/share/
       ln -sf ~/Github/nixos/bookmarks/places.sqlite ~/.mozilla/firefox/default/places.sqlite
     '';
-
-    packages = with pkgs; [
-      spotify
-			gimp
-      tldr
-			ripgrep
-			fzf
-			# docker
-    ];
 
     # You do not need to change this if you're reading this in the future.
     # Don't ever change this after the first build.  Don't ask questions.
