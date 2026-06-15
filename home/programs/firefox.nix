@@ -61,15 +61,6 @@
       SearchSuggestEnabled = false;
       OfferToSaveLogins = false;
       DisableFormHistory = true;
-      SanitizeOnShutdown = {
-        Cache = false;
-        Cookies = false;
-        FormData = true;
-        History = true;
-        # Sessions = false;
-        SiteSettings = false;
-        Locked = true;
-      };
       FirefoxSuggest = {
         WebSuggestions = false;
         SponsoredSuggestions = false;
@@ -108,6 +99,17 @@
         privateDefault = "ddg";
       };
       settings = {
+        # Sanitize on shutdown settings
+        "privacy.clearOnShutdown.cache" = false;
+        "privacy.clearOnShutdown.cookies" = false;
+        "privacy.clearOnShutdown.formdata" = true;
+        "privacy.clearOnShutdown.history" = true;
+        "privacy.clearOnShutdown.sessions" = false;
+        "privacy.clearOnShutdown.siteSettings" = false;
+
+        # Session restoration
+        "browser.startup.page" = 3;
+
         # Enable vertical tabs
         "sidebar.revamp" = true;
         "sidebar.verticalTabs" = true;
