@@ -4,6 +4,9 @@
 
 { config, lib, pkgs, inputs, ... }:
 
+let
+	nixvirt = inputs.nixvirt;
+in
 {
   imports =
     [ 
@@ -155,7 +158,32 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-	# Install and enable Docker
+	# Rules for the creation, deletion and cleaning of files and directories, see: https://mynixos.com/nixpkgs/option/systemd.tmpfiles.rules
+	systemd.tmpfiles.rules = [
+    # Creates a directory with specified mode and root ownership (needed for libvirt to work)
+		"d /mnt/ssd/virtual 0711 root root - -"
+	];
+
+	# Use NixVirt to setup libvirt domains, networks and pools declaratively
+	# After setup use: 'sudo virsh pool-autostart ssd' to autostart pool
+	virtualisation.libvirt.connections."qemu:///session".pools =
+	 [
+	   {
+	     definition = nixvirt.lib.pool.writeXML (
+	       {
+	         type = "dir";
+	         name = "ssd";
+	         target = {
+	           path = "/mnt/ssd/virtual";
+	         };
+	       }
+	     );
+	     active = true;
+	     restart = true;
+	   }
+	 ];
+
+	# Enable Docker
 	virtualisation.docker.enable = true;
 
   # Enable OpenGL
