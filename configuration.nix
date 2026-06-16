@@ -154,6 +154,17 @@ in
     };
   };
 
+  # Turn on periodic optimisation of the nix store
+  nix.optimise.automatic = true; # Runs at 03:45 by default, but when system was off reschedules it at next startup
+  # nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
+
+  # Automatic garbage collection using `nix-store --gc`
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   # Enable virtualisation
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
