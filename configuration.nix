@@ -6,8 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ 
+      ./hardware-configuration.nix # Include the results of the hardware scan.
       ./pkgs.nix
     ];
 
@@ -17,7 +17,7 @@
 
   networking.hostName = "nixos-demo"; # Define your hostname.
 
-  # Temporarily disable firewall for ease of use
+  # Temporarily disable firewall for ease of use (dangerous)
   # networking.firewall.enable = false;
 
   # Configure network connections interactively with nmcli or nmtui.
@@ -28,9 +28,6 @@
 
   # SDDM Display Manager
   services.displayManager.sddm.enable = true;
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
 
   # Plasma 6
   services.desktopManager.plasma6.enable = true;
@@ -83,8 +80,6 @@
   users.users.user = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-    ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -106,8 +101,6 @@
       '';
     })
 	];
-
-  # programs.firefox.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -142,7 +135,6 @@
       }
     ];
   };
-  # services.openssh.enable = true;
 
   # TODO: Gives error, because of home-manager failing on first system setup
   systemd.services.keys = {
@@ -196,11 +188,15 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.stable; # Default
 
 	};
 
 	hardware.nvidia.prime = {
+
+		# Sadly sync mode is the only option for a hybrid graphics setup (e.g. laptop) with older hardware
+		sync.enable = true;
+
 		# Make sure to use the correct Bus ID values for your system!
 		intelBusId = "PCI:0:2:0";
 		nvidiaBusId = "PCI:1:0:0";
