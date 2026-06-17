@@ -133,6 +133,7 @@ in
 	systemd.tmpfiles.rules = [
     # Creates a directory with specified mode and root ownership (needed for libvirt to work)
 		"d /mnt/ssd/virtual 0711 root root - -"
+		"d /mnt/ssd/docker 710 user user - -"
 	];
 
 	# Use NixVirt to setup libvirt domains, networks and pools declaratively
@@ -155,7 +156,30 @@ in
 	 ];
 
 	# Enable Docker
-	virtualisation.docker.enable = true;
+  # Source: https://wiki.nixos.org/wiki/Docker
+  # Fix: https://discourse.nixos.org/t/rootless-docker-broken-unit-docker-service-not-found/65112/12
+	virtualisation.docker = {
+    enable = false;
+    
+    # Periodically run `docker system prune -f` to remove dangling Docker resources
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+      daemon.settings = {
+        data-root = "/mnt/ssd/docker";
+        features.cdi = true; # Enable Nvidia CDI (GPU)
+      };
+    };
+
+  };
+
+	# Needed for Docker to communicate with the gpu
+	hardware.nvidia-container-toolkit.enable = true;
 
   # Enable OpenGL
   hardware.graphics = {
