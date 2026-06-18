@@ -4,7 +4,10 @@ let
 in
 {
   programs.neovim = {
-    enable = true;
+    enable = true; 
+    # Enable sideloading `init.lua` (useful if you want to manage your own configuration imperatively)
+    # Fix: https://discourse.nixos.org/t/neovim-error-installing-file-outside-home/77225
+    sideloadInitLua = true;
     package = neovim-nightly;
 		viAlias = true;
 		vimAlias = true;
@@ -17,11 +20,13 @@ in
       # markdown-preview-nvim
       # gitsigns-nvim
       # kanagawa-nvim
+			nvim-treesitter
+			nvim-treesitter-parsers.json
     ];
   };
 
   xdg.configFile."nvim" = {
-		source = config.lib.file.mkOutOfStoreSymlink "/home/user/Github/nixos/nvim";
+		source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Github/nixos/nvim";
     # source = "${project-root}/nvim";
     # source = ./conf;
     recursive = true;
