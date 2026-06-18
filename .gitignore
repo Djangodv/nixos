@@ -3,3 +3,6 @@ bookmarks/
 
 # Ignore ToDo
 todo.md
+
+# Ignore system-specific disk partitioning
+hardware-configuration.nix

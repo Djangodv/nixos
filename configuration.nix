@@ -6,11 +6,12 @@
 
 let
 	nixvirt = inputs.nixvirt;
+  secondaryDrive = "/data";
 in
 {
   imports =
     [ 
-      ./hardware-configuration.nix # Include the results of the hardware scan.
+      /etc/nixos/hardware-configuration.nix # Include the results of the hardware scan.
       ./pkgs.nix
     ];
 
@@ -132,8 +133,8 @@ in
 	# Rules for the creation, deletion and cleaning of files and directories, see: https://mynixos.com/nixpkgs/option/systemd.tmpfiles.rules
 	systemd.tmpfiles.rules = [
     # Creates a directory with specified mode and root ownership (needed for libvirt to work)
-		"d /mnt/ssd/virtual 0711 root root - -"
-		"d /mnt/ssd/docker 710 user user - -"
+		"d ${secondaryDrive}/virtual 0711 root root - -"
+		"d ${secondaryDrive}/docker 710 user user - -"
 	];
 
 	# Use NixVirt to setup libvirt domains, networks and pools declaratively
@@ -146,7 +147,7 @@ in
 	         type = "dir";
 	         name = "ssd";
 	         target = {
-	           path = "/mnt/ssd/virtual";
+	           path = "${secondaryDrive}/virtual";
 	         };
 	       }
 	     );
@@ -171,15 +172,15 @@ in
       enable = true;
       setSocketVariable = true;
       daemon.settings = {
-        data-root = "/mnt/ssd/docker";
-        features.cdi = true; # Enable Nvidia CDI (GPU)
+        data-root = "${secondaryDrive}/docker";
+        # features.cdi = true; # Enable Nvidia CDI (GPU)
       };
     };
 
   };
 
 	# Needed for Docker to communicate with the gpu
-	hardware.nvidia-container-toolkit.enable = true;
+	# hardware.nvidia-container-toolkit.enable = true;
 
   # Enable OpenGL
   hardware.graphics = {
@@ -191,7 +192,7 @@ in
 	# hardware.opengl.driSupport32Bit = true;
 
 	# Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  # services.xserver.videoDrivers = ["nvidia"]; # Uncomment this line to enable Nvdia drivers
 
 	hardware.nvidia = {
 
