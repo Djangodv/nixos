@@ -9,11 +9,11 @@
         anki
         x11docker
         zip
-        lutris
+        # lutris
         libreoffice-qt # Qt framework is better suited for KDE Plasma
         pandoc
-        texliveFull
-        kdePackages.kdenlive
+        texliveBasic # See: https://wiki.nixos.org/wiki/TexLive
+        kdePackages.kdenlive # Video editor
         kdePackages.filelight
         # mc
     ];
