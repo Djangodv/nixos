@@ -79,41 +79,40 @@ in
   nixpkgs.config.allowUnfree = true;
 
   # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    # settings = {
-      # PasswordAuthentication = true;
-    # };
-    hostKeys = [
-      {
-        bits = 4096;
-        path = "/home/user/.ssh/id_ed25519";
-        type = "ed25519";
-        comment = "user@nixos-demo";
-      }
-      {
-        bits = 4096;
-        path = "/home/user/.ssh/id_ed25519_school";
-        type = "ed25519";
-        comment = "user@nixos-demo";
-      }
-    ];
-  };
+  # services.openssh = {
+  #   enable = true;
+  #   # settings = {
+  #     # PasswordAuthentication = true;
+  #   # };
+  #   hostKeys = [
+  #     {
+  #       bits = 4096;
+  #       path = "/home/user/.ssh/id_ed25519";
+  #       type = "ed25519";
+  #       comment = "user@nixos-demo";
+  #     }
+  #     {
+  #       bits = 4096;
+  #       path = "/home/user/.ssh/id_ed25519_school";
+  #       type = "ed25519";
+  #       comment = "user@nixos-demo";
+  #     }
+  #   ];
+  # };
 
-  # TODO: Gives error, because of home-manager failing on first system setup
-  systemd.services.keys = {
-    enable = true;
-    description = "Change file permissions of keys in /home/user/.ssh";
-    # Specifies the service should start when non-gfx multi-user shell is ready
-    wantedBy = [ "multi-user.target" ];
-    after = [ "home-manager-user.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = ''/bin/sh -c "chown user:users /home/user/.ssh/id_ed25519*"'';
-      # User = "user";
-      # Group = "users";
-    };
-  };
+  # systemd.services.keys = {
+  #   enable = true;
+  #   description = "Change file permissions of keys in /home/user/.ssh";
+  #   # Specifies the service should start when non-gfx multi-user shell is ready
+  #   wantedBy = [ "multi-user.target" ];
+  #   after = [ "home-manager-user.service" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = ''/bin/sh -c "chown user:users /home/user/.ssh/id_ed25519*"'';
+  #     # User = "user";
+  #     # Group = "users";
+  #   };
+  # };
 
   # Turn on periodic optimisation of the nix store
   nix.optimise.automatic = true; # Runs at 03:45 by default, but when system was off reschedules it at next startup
