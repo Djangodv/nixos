@@ -4,57 +4,34 @@
   inputs = {
     # NixOS official package source, using the nixos-26.05 branch
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    # home-manager, used for managing user configuration
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with
-      # the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager"; 
-    };
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
+
 		nixvirt = {
 			url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
 		};
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, nixvirt, ... }@inputs:
+  outputs = { self, nixpkgs, nixvirt, ... }@inputs:
     let
-      overlays = [
-        inputs.neovim-nightly-overlay.overlays.default
-      ];
+      # Define system specific variables for the NixOS configuration
+      cfg = {
+        username = "user";
+        hostname = "nixos-demo";
+        secondaryDrive = "/data";
+        projectRoot = "/home/${cfg.username}/Github/nixos";
+      };
     in
     {
-    # TODO: Replace 'nixos-demo' with matching hostname (also edit in ./configuration.nix)
     nixosConfigurations.nixos-demo = nixpkgs.lib.nixosSystem {
       # Let configuration.nix inherit inputs to use in configuration
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs; inherit cfg; };
       modules = [
 
 				nixvirt.nixosModules.default
 
-        ./configuration.nix
+        ./nixos/configuration.nix
 				./devshell.nix
 
-	      home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-            home-manager.extraSpecialArgs = { inherit inputs; project-root = ./.; };
-            home-manager.users.user = import ./home;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-          }
       ];
     };
   };

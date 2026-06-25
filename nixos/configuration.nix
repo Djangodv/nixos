@@ -2,15 +2,15 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, cfg, ... }:
 
 let
 	nixvirt = inputs.nixvirt;
-  secondaryDrive = "/data";
 in
 {
   imports =
     [ 
+      # ./hardware-configuration.nix
       /etc/nixos/hardware-configuration.nix # Include the results of the hardware scan.
       ./pkgs.nix
     ];
@@ -108,7 +108,8 @@ in
   #   after = [ "home-manager-user.service" ];
   #   serviceConfig = {
   #     Type = "oneshot";
-  #     ExecStart = ''/bin/sh -c "chown user:users /home/user/.ssh/id_ed25519*"'';
+  #     # ExecStart = ''/bin/sh -c "chown user:users /home/user/.ssh/id_ed25519*"'';
+  #     # ExecStart = ''/bin/sh -c "echo ${lib.escapeShellArg cfg.projectRoot}"'';
   #     # User = "user";
   #     # Group = "users";
   #   };
@@ -132,8 +133,8 @@ in
 	# Rules for the creation, deletion and cleaning of files and directories, see: https://mynixos.com/nixpkgs/option/systemd.tmpfiles.rules
 	systemd.tmpfiles.rules = [
     # Creates a directory with specified mode and root ownership (needed for libvirt to work)
-		"d ${secondaryDrive}/virtual 0711 root root - -"
-		"d ${secondaryDrive}/docker 710 user user - -"
+		"d ${cfg.secondaryDrive}/virtual 0711 root root - -"
+		"d ${cfg.secondaryDrive}/docker 710 user user - -"
 	];
 
 	# Use NixVirt to setup libvirt domains, networks and pools declaratively
@@ -146,7 +147,7 @@ in
 	         type = "dir";
 	         name = "ssd";
 	         target = {
-	           path = "${secondaryDrive}/virtual";
+	           path = "${cfg.secondaryDrive}/virtual";
 	         };
 	       }
 	     );
@@ -171,7 +172,7 @@ in
       enable = true;
       setSocketVariable = true;
       daemon.settings = {
-        data-root = "${secondaryDrive}/docker";
+        data-root = "${cfg.secondaryDrive}/docker";
         # features.cdi = true; # Enable Nvidia CDI (GPU)
       };
     };
@@ -181,7 +182,7 @@ in
 	# Needed for Docker to communicate with the gpu
 	# hardware.nvidia-container-toolkit.enable = true;
 
-  # Enable OpenGL
+  # Enable OpenGL, see: https://wiki.nixos.org/wiki/Graphics#OpenGL
   hardware.graphics = {
     enable = true;
   };
