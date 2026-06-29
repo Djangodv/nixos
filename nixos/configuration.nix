@@ -133,28 +133,28 @@ in
 	# Rules for the creation, deletion and cleaning of files and directories, see: https://mynixos.com/nixpkgs/option/systemd.tmpfiles.rules
 	systemd.tmpfiles.rules = [
     # Creates a directory with specified mode and root ownership (needed for libvirt to work)
-		"d ${cfg.secondaryDrive}/virtual 0711 root root - -"
-		"d ${cfg.secondaryDrive}/docker 710 user user - -"
+		"d ${cfg.secondaryDrive}/virtual 755 user users - -"
+		"d ${cfg.secondaryDrive}/docker 710 user users - -"
 	];
 
 	# Use NixVirt to setup libvirt domains, networks and pools declaratively
 	# After setup use: 'sudo virsh pool-autostart ssd' to autostart pool
-	virtualisation.libvirt.connections."qemu:///session".pools =
-	 [
-	   {
-	     definition = nixvirt.lib.pool.writeXML (
-	       {
-	         type = "dir";
-	         name = "ssd";
-	         target = {
-	           path = "${cfg.secondaryDrive}/virtual";
-	         };
-	       }
-	     );
-	     active = true;
-	     restart = true;
-	   }
-	 ];
+	virtualisation.libvirt = {
+    enable = true;
+    connections."qemu:///system" = {
+      pools = [
+        {
+          active = true;
+          definition = nixvirt.lib.pool.writeXML {
+            name = "ssd";
+            uuid = "5e579a10-0f88-4657-859b-6c661b623282";
+            type = "dir";
+            target = { path = "${cfg.secondaryDrive}/virtual"; };
+          };
+        }
+      ];
+    };
+  };
 
 	# Enable Docker
   # Source: https://wiki.nixos.org/wiki/Docker
