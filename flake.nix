@@ -5,13 +5,18 @@
     # NixOS official package source, using the nixos-26.05 branch
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 		nixvirt = {
 			url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
 		};
   };
 
-  outputs = { self, nixpkgs, nixvirt, ... }@inputs:
+  outputs = { self, nixpkgs, nixvirt, disko, ... }@inputs:
     let
       # Define system specific variables for the NixOS configuration
       cfg = {
@@ -28,9 +33,9 @@
       modules = [
 
 				nixvirt.nixosModules.default
+        disko.nixosModules.disko
 
         ./nixos/configuration.nix
-				./devshell.nix
 
       ];
     };

@@ -10,8 +10,9 @@ in
 {
   imports =
     [ 
-      # ./hardware-configuration.nix
-      /etc/nixos/hardware-configuration.nix # Include the results of the hardware scan.
+      ./hardware-configuration.nix # Include the results of the hardware scan.
+      # /etc/nixos/hardware-configuration.nix
+      ./disko-config.nix
       ./pkgs.nix
     ];
 
