@@ -23,7 +23,6 @@
         username = "user";
         hostname = "nixos-demo";
         secondaryDrive = "/data";
-        projectRoot = "/home/${cfg.username}/Github/nixos";
       };
     in
     {
@@ -35,7 +34,7 @@
 				nixvirt.nixosModules.default
         disko.nixosModules.disko
 
-        ./nixos/configuration.nix
+        ./configuration/configuration.nix
 
       ];
     };
